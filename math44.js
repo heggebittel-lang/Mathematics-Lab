@@ -1,0 +1,9 @@
+/* Exact symbolic scaling, grouped independent events and tail expectation. */
+(function(M){'use strict';const q=M.Q.of,{N,B}=M;
+function sampleCountVar44(single,n){return M.simp(B('*',n,single))}
+function scaleCountVar44(count,n){return M.simp(B('/',count,B('^',n,N(2))))}
+function grouped44(model,left,right){let {p,rel}=model;if(!Array.isArray(left)||left.length!==2||new Set([...left,right]).size!==3||[...left,right].some(i=>![0,1,2].includes(i)))throw Error('需要两个互斥事件与剩余事件');let ix=(a,b)=>[[0,1],[0,2],[1,2]].findIndex(([i,j])=>i===Math.min(a,b)&&j===Math.max(a,b));if(rel[ix(...left)]!=='disjoint'||left.some(i=>rel[ix(i,right)]!=='independent'))throw Error('需要组内互斥且每个组内事件与剩余事件独立');let a=q(p[left[0]]),c=q(p[left[1]]),b=q(p[right]);if([a,b,c].some(z=>z.n<0n||z.n>z.d)||a.add(c).n>a.add(c).d)throw Error('概率非法');return {left,right,u:a.add(c).str(),v:b.str(),parts:[a.mul(b).str(),c.mul(b).str()],intersection:a.mul(b).add(c.mul(b)).str()}}
+function groupedProb44(g,mode){let a=q(g.u),b=q(g.v),c=q(g.intersection);if(!a.mul(b).sub(c).zero())throw Error('交集与独立性不一致');if(mode==='union')return a.add(b).sub(c).str();if(mode==='one')return a.add(b).sub(c.mul(2)).str();throw Error('选择至少一个或恰一个')}
+function tailPrimitive44(a,s,proposal){let p=M.parse(proposal);M.domain34(p,['x']);if(M.vars(p).some(k=>k!=='x')||!M.eqRat25(M.derivative(p,'x'),s))throw Error('原函数求导与尾概率不一致');let want=M.parse(`-${q(a).pow(2).str()}/(${q(a).str()}+x)`);if(!M.eqRat25(p,want))throw Error('请选无穷远趋零的原函数');return p}
+function tailEnd44(a,d,p){let v=M.evalAt(p,{x:q(d).str()});if(v.t!=='n'||q(d).n<0n||!q(v.v).neg().sub(M.pareto(a,d).e).zero())throw Error('端点值错误');return q(v.v).neg().str()}
+Object.assign(M,{sampleCountVar44,scaleCountVar44,grouped44,groupedProb44,tailPrimitive44,tailEnd44});})(typeof module!=='undefined'?require('./core.js'):window.M);

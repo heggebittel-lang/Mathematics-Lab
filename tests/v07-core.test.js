@@ -1,0 +1,14 @@
+const assert=require('node:assert/strict'),M=require('../core');require('../algebra');require('../calculus-extra');require('../math06');require('../math07');let n=0;const test=(s,f)=>{f();n++;console.log('PASS '+s)},ast=s=>M.normalize(M.parse(s)),same=(a,b)=>assert(M.zero07(M.B('-',a,b))),mat=value=>({id:'root',value}),det=o=>M.detAst(o.value.map(r=>r.map(M.parse))),tr=(o,...args)=>({...o,...M.detTransform07(o,...args)});
+test('polynomial row scaling and zero parameter extension',()=>{let a=mat([['a','1'],['1','a']]),b=tr(a,'R','combined',1,0,'a','-1');same(M.detFinish07(b.detWork,det(b)),ast('a^2-1'));same(M.evalAt(M.detFinish07(b.detWork,det(b)),{a:'0'}),M.N(-1));assert(b.detWork.conditions.length)});
+test('column add polynomial, determinant preserved',()=>{let a=mat([['x','2'],['3','4']]),b=tr(a,'C','add',0,1,'1','x+1');same(det(a),det(b));same(b.detWork.den,M.N(1))});
+test('swap sign and row scale correction',()=>{let a=mat([['2','3'],['4','5']]),b=tr(tr(a,'R','swap',0,1,'1','0'),'C','scale',0,1,'-2','0');same(M.detFinish07(b.detWork,det(b)),det(a))});
+test('zero multiplier rejected',()=>assert.throws(()=>tr(mat([['1','2'],['3','4']]),'R','scale',0,1,'a-a','0')));
+test('same source row rejected',()=>assert.throws(()=>tr(mat([['1','2'],['3','4']]),'R','add',0,0,'1','1')));
+test('transcendental multiplier rejected',()=>assert.throws(()=>tr(mat([['1','2'],['3','4']]),'R','scale',0,1,'sin(a)','0')));
+test('upper triangular product',()=>{let a=mat([['x','3','2'],['0','2','4'],['0','0','x-1']]),r=M.detTerminal07(a,'triangle');same(r.val,ast('2*x*(x-1)'))});
+test('lower triangular product',()=>{let a=mat([['x','0'],['3','x+1']]);same(M.detTerminal07(a,'triangle').val,ast('x*(x+1)'))});
+test('false triangular rejection',()=>assert.throws(()=>M.detTerminal07(mat([['1','2'],['3','4']]),'triangle')));
+test('zero row and column',()=>{same(M.detTerminal07(mat([['1','0'],['2','0']]),'zero').val,M.N(0));assert.throws(()=>M.detTerminal07(mat([['1','2'],['3','4']]),'zero'))});
+test('cofactor row and column signs and exact reconstruction',()=>{let a=mat([['x','1','2'],['3','4','5'],['6','7','8']]);for(let axis of ['R','C'])for(let i=0;i<3;i++){let r=M.detCofactor07(a,axis,i),v=r.terms.reduce((s,t)=>M.normalize(M.B('+',s,M.B('*',t.coeff,det(mat(t.value))))),M.N(0));same(v,det(a))}});
+test('division must be exact',()=>assert.throws(()=>M.polyDivide07(ast('x+1'),ast('x'),'x')));
+console.log(n+' V0.7 tests passed');

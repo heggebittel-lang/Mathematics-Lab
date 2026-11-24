@@ -1,0 +1,7 @@
+const assert=require('node:assert/strict'),M=require('../core');require('../algebra');require('../math14');let n=0;function t(name,f){f();console.log('PASS',name);n++}
+t('exact rational equivalents and domain restrictions',()=>{assert(M.ratEqual14('1+1/n','(n+1)/n'));assert(M.ratEqual14('1+1/(n+1)','(n+2)/(n+1)'));assert(!M.ratEqual14('n/(n+2)','n/(n+1)'));assert.throws(()=>M.ratEqual14('(n-1)/(n-1)','1'));assert.throws(()=>M.ratEqual14('1/(n-n)','0'))});
+t('symbolic sums and equivalent fractions',()=>{assert(M.symbolEqual14('3*sqrt(3)-(pi+32)/9','3*sqrt(3)-pi/9-32/9'));assert(M.symbolEqual14('(3+4*ln(2))/64','ln(2)/16+3/64'));assert(!M.symbolEqual14('1-2*ln(2)','-1-2*ln(2)'));assert.throws(()=>M.symbolEqual14('ln(4)','2*ln(2)'))});
+const A=[['1','-1','0','-1'],['1','1','0','3'],['2','1','2','6']],b=[['0'],['2'],['3']],B=[['1','0','1','2'],['1','-1','a','a-1'],['2','-3','2','-2']],d=[['1'],['0'],['-1']],aug=A.map((r,i)=>[...r,...b[i]]);let line=M.affine14(M.rref(aug).m,3);
+t('exact affine extraction and invalid free column',()=>{assert.deepEqual(line.u,['1','1','0','0']);assert.deepEqual(line.v,['-1','-2','-1','1']);assert.throws(()=>M.affine14(aug,3));assert.throws(()=>M.affine14(M.rref(aug).m,0))});
+t('symbolic inclusion, wrong coefficient rejected',()=>{assert(M.included14(A,b,line));assert(M.included14(B,d,line));assert(!M.included14(B,d,{...line,v:['1','-2','-1','1']}));assert.equal(M.rref(M.evalMatrix(B,{a:'1'})).rank,2);assert.equal(M.rref(M.evalMatrix(B,{a:'2'})).rank,3)});
+console.log(n+' V1.4 core tests passed');

@@ -1,0 +1,6 @@
+const assert=require('node:assert/strict'),M=require('../core');for(let f of ['algebra','math11','math12','math25','math47'])require('../'+f);const p=M.parse;
+assert.doesNotThrow(()=>M.primitive47(p('x^2'),p('x^3/3'),'x'));assert.throws(()=>M.primitive47(p('x^2'),p('x^2'),'x'));console.log('PASS selected polynomial primitive');
+assert.deepEqual(M.split47('2','1','-2'),{A:'1',B:'-2'});assert.throws(()=>M.split47('2','1','-1'));assert.equal(M.logDomain47('2','1','-2'),'-2');assert.throws(()=>M.logDomain47('2','1','0'));console.log('PASS partial fraction and pole threshold');
+assert.doesNotThrow(()=>M.expPrimitive47(p('-exp(x)'),p('-exp(x)'),'x'));assert.throws(()=>M.expPrimitive47(p('-exp(x)'),p('exp(x)'),'x'));console.log('PASS exponential primitive validation');
+for(let s of ['t*(t-1)/2','t^2/2-t/2+5'])assert.doesNotThrow(()=>M.difference47(p('t'),p(s),'t'));assert.throws(()=>M.difference47(p('t'),p('t^2'),'t'));console.log('PASS difference identity and free constant');
+assert.deepEqual(M.powerPrimitive47('-1/12','-1/18','3/2'),{A:'-1/18',n:'3/2'});assert.throws(()=>M.powerPrimitive47('-1/12','-1/12','3/2'));assert.throws(()=>M.powerPrimitive47('-1/12','-1/18','2'));console.log('PASS power primitive coefficient and exponent');

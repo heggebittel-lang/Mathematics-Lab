@@ -1,0 +1,10 @@
+const assert=require('node:assert/strict'),M=require('../core');require('../algebra');require('../calculus-extra');require('../math25');require('../math31');
+const eq=(a,b)=>M.eqRat25(typeof a==='string'?M.parse(a):a,M.parse(b));
+assert.deepEqual(M.squareWitness31('2','-2'),{a:'2',b:'-2',ratio:'-1',square:'1'});assert.throws(()=>M.squareWitness31('1','1'));console.log('PASS squared ratio witness');
+assert.equal(M.str(M.sequenceTerm31(1).ast),'2');assert(M.sequenceTerm31(2).approx<1);assert.equal(M.rootBound31(2,'3/2').sign,1);assert.equal(M.rootBound31(2,'7/5').sign,-1);console.log('PASS sequence terms and exact root comparisons');
+assert(eq(M.logBound31('1/2').derivative,'(1-x)/(2*(1+x))'));assert.throws(()=>M.logBound31('3/4'));console.log('PASS logarithm derivative bound');
+let D=[['1','0','0'],['0','-1','0'],['0','0','0']],A=[['1','1','0'],['0','-1','0'],['0','0','0']],P=[['1','-1','0'],['0','2','0'],['0','0','1']];assert(M.matrixWitness31(A,P,D,'sim').same);assert.throws(()=>M.matrixWitness31(D,D,D,'sim'));let C=[['4','0','0'],['0','-1','0'],['0','0','0']],T=[['2','0','0'],['0','1','0'],['0','0','1']];assert(!M.matrixWitness31(C,T,D,'cong').same);console.log('PASS similarity and congruence counterexamples');
+let z=M.eventModel31(['2/5','0','1/5','2/5']);assert.deepEqual([z.a,z.b,z.c,z.nc],['2/5','3/5','2/3','1/3']);assert.throws(()=>M.eventModel31(['1/2','1/2','1/2','0']));assert.throws(()=>M.eventModel31(['1/10','1/10','1/2','3/10']));console.log('PASS exact four-region probability witness');
+assert.equal(M.parity31('int',M.parity31('sum',M.parity31('cos','odd'),M.parity31('diff','odd'))),'odd');assert.equal(M.parity31('sum','odd','even'),'mixed');console.log('PASS parity rules');
+assert(eq(M.recurrence31('(n-1)/3','(n-1)/3'),'(n-1)/(n+2)'));assert.throws(()=>M.recurrence31('n/3','n/3'));console.log('PASS symbolic recurrence coefficient');
+assert.deepEqual(M.mvtLengths31('3/2'),{side:'right',length:'1/2',factor:'2'});assert.equal(M.mvtLengths31('1').factor,'1');assert.throws(()=>M.mvtLengths31(2));console.log('PASS mean-value interval length');

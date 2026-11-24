@@ -1,0 +1,9 @@
+/* V3.2: shared operations, exact arithmetic; no whole-question solver. */
+(function(M){'use strict';const {Q,N,B,parse:P,normalize}=M,q=Q.of;
+function ratio32(ast,x,n,den){let p=M.seriesPoly26(ast,x,n),d=M.poly(P(den),x),j=d.findIndex(c=>!c.zero());if(j<0||d.filter(c=>!c.zero()).length!==1)throw Error('比较对象必须为非零单项式');if(j>n)throw Error('展开阶数不足以确定比值');let i=p.findIndex(c=>!c.zero());if(i>=0&&i<j)throw Error('该比值不具有有限极限；请分析单侧发散');return {value:i<0||i>j?'0':p[i].div(d[j]).str(),numeratorOrder:i,denominatorOrder:j,denominatorCoef:d[j].str()}}
+function productSeries32(a,b,x,n,m){let p=M.seriesPoly26(a,x,n),r=M.seriesPoly26(b,x,m),k=Math.min(n,m),out=Array.from({length:k+1},(_,i)=>{let c=q(0);for(let j=0;j<=i;j++)c=c.add(p[j].mul(r[i-j]));return c});return {ast:M.fromPoly(out,x),n:k,variable:x}}
+function localClass32(a,x,n){let p=M.seriesPoly26(a,x,n);let i=p.findIndex((c,i)=>i>0&&!c.zero());if(i<0)throw Error('展开没有非零增量项，须提高阶数');let c=p[i];return {order:i,coef:c.str(),claim:i%2?'none':c.n>0n?'min':'max'}}
+function triangle32(a,b,l,h){a=q(a);b=q(b);if(a.sub(b).n>=0n)throw Error('下限必须小于上限');if(!M.eqRat25(P(l),M.V('x'))||!M.eqRat25(P(h),N(b)))throw Error('固定 x 后应有 x≤y≤上界');return {a:a.str(),b:b.str(),lo:P(l),hi:P(h)}}
+function width32(lo,hi){return normalize(B('-',hi,lo))}
+function quadChange32(a,u,v,z){let U=P(u),V=P(v),out=P(z);let coeff=t=>{let p=M.sparse(t);if([...p.keys()].some(k=>!['x','y','z'].includes(k)))throw Error('代换须为原变量齐次线性形式');return ['x','y','z'].map(k=>(p.get(k)||q(0)).str())};let A=[coeff(U),coeff(V)];if(M.rref(A).rank!==2)throw Error('两个代换变量必须独立');if(M.vars(out).some(k=>!['u','v'].includes(k)))throw Error('新表达式只能含 u,v');let lift=M.sub(M.sub(out,'u',U),'v',V);if(!M.eqRat25(lift,a))throw Error('代回后与原二次型不等价');return normalize(out)}
+Object.assign(M,{ratio32,productSeries32,localClass32,triangle32,width32,quadChange32});})(typeof module!=='undefined'?require('./core'):window.M);

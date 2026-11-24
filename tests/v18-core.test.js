@@ -1,0 +1,5 @@
+const assert=require('node:assert/strict'),M=require('../core');require('../algebra');require('../math18');
+assert.equal(M.unionPair18('1/3','1/3','1/9'),'5/9');assert.throws(()=>M.unionPair18('1/3','1/3','1/2'));assert.throws(()=>M.unionPair18('3/4','3/4','0'));console.log('PASS exact union and invalid intersection');
+assert.equal(M.conditional18('5/9','8/9'),'5/8');assert.throws(()=>M.conditional18('1/2','0'));assert.throws(()=>M.conditional18('3/4','1/2'));console.log('PASS conditional and invalid denominator');
+const p=[0,1,2].map(r=>{let a=M.geoResidue18('1/2',3,r);return M.geoSum18(a.first,a.ratio)});assert.deepEqual(p,['1/7','4/7','2/7']);assert.equal(M.pmfMean18(['0','1','2'],p),'8/7');assert.throws(()=>M.geoResidue18('1/2',3,3));assert.throws(()=>M.geoSum18(1,1));console.log('PASS geometric residue and mean');
+let ps=[0,1,2,3].map(r=>{let a=M.geoResidue18('1/3',4,r);return M.geoSum18(a.first,a.ratio)});assert.equal(ps.reduce((s,v)=>M.Q.of(s).add(v).str(),'0'),'1');assert.throws(()=>M.pmfMean18(['0','1'],['1/2','1/3']));console.log('PASS changed parameters and normalization');

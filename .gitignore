@@ -1,0 +1,17 @@
+# Local references / personal records: do not publish
+/assets06/*
+/assets16/*
+/resources/*
+!/assets06/.gitkeep
+!/assets16/.gitkeep
+!/resources/.gitkeep
+*.pdf
+*.docx
+*.zip
+mathematics-lab-record*.json
+.env
+.env.*
+node_modules/
+__pycache__/
+.DS_Store
+Thumbs.db

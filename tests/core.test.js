@@ -1,0 +1,20 @@
+const assert=require('node:assert/strict'),M=require('../core.js'),{Q}=M;
+let n=0;function test(name,f){f();n++;console.log('PASS',name)}
+test('fraction precision',()=>assert.equal(Q.of('1/3').add('1/6').str(),'1/2'));
+test('unary precedence',()=>assert.equal(M.simp(M.parse('-2^2')).v,'-4'));
+test('nested fraction',()=>assert.equal(M.simp(M.parse('(1/2)/(3/4)')).v,'2/3'));
+test('polynomial derivative',()=>assert.equal(M.compare(M.derivative(M.parse('x^3-3*x^2+2'),'x'),M.parse('3*x^2-6*x')),'ok'));
+test('2020-16 exact value',()=>assert.equal(M.simp(M.sub(M.sub(M.parse('x^3+8y^3-x*y'),'x',M.N('1/6')),'y',M.N('1/12'))).v,'-1/216'));
+test('2025-21 exact rank and H',()=>{let r=M.rref([[1,-1,3,0,-1],[-1,0,-2,-1,-1],[1,1,1,2,3]]);assert.equal(r.rank,2);assert.deepEqual(r.m.slice(0,2),[['1','0','2','1','1'],['0','1','-1','1','2']])});
+test('det singular',()=>assert.equal(M.det([[1,2],[2,4]]).v,'0'));
+test('det swapped rows',()=>assert.equal(M.det([[0,1],[2,3]]).v,'-2'));
+test('row exact',()=>assert.deepEqual(M.rowOp([[1,2],[3,4]],'add',2,1,'-3'),[['1','2'],['0','-2']]));
+test('rank zero matrix',()=>assert.equal(M.rref([[0,0],[0,0]]).rank,0));
+test('row invalid zero scale',()=>assert.throws(()=>M.rowOp([[1]],'scale',1,1,0)));
+test('2025-22 probability and thinning',()=>{assert.deepEqual(M.pareto(100,100),{p:'1/4',e:'50'});assert.equal(M.thin(8,'1/4'),'2')});
+test('discrete exact variance',()=>assert.deepEqual(M.discrete([0,1],['1/2','1/2']),{e:'1/2',variance:'1/4'}));
+test('invalid pmf',()=>assert.throws(()=>M.discrete([0,1],['1/2','1/3'])));
+test('invalid retention probability',()=>assert.throws(()=>M.thin(8,'5/4')));
+test('unsupported comparison not wrong',()=>assert.equal(M.compare(M.parse('sin(x)'),M.parse('cos(x)')),'unknown'));
+test('invalid log argument',()=>assert.throws(()=>M.validate(M.parse('ln(-1)'))));
+console.log(`${n} passed`);

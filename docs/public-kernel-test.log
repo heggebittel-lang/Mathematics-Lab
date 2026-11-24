@@ -1,0 +1,415 @@
+
+--- core.test.js ---
+PASS fraction precision
+PASS unary precedence
+PASS nested fraction
+PASS polynomial derivative
+PASS 2020-16 exact value
+PASS 2025-21 exact rank and H
+PASS det singular
+PASS det swapped rows
+PASS row exact
+PASS rank zero matrix
+PASS row invalid zero scale
+PASS 2025-22 probability and thinning
+PASS discrete exact variance
+PASS invalid pmf
+PASS invalid retention probability
+PASS unsupported comparison not wrong
+PASS invalid log argument
+17 passed
+
+--- extended.test.js ---
+PASS linear polynomial root
+PASS two stationary roots after derivative
+PASS quadratic irrational roots kept as expressions
+PASS quadratic no real roots
+PASS identically zero
+PASS constant nonzero
+PASS unsupported high-degree no partial output
+PASS 2020 Q16 exact stationary system
+PASS Hessian discriminant and classification
+PASS linear system unique
+PASS linear system inconsistent
+PASS linear system free vector
+PASS parameter matrix exact rank
+PASS rank parameter no solution
+PASS rank parameter two solutions
+PASS 2023 Q21 characteristic roots and eigenvectors
+PASS non-eigenvalue rejected
+PASS Taylor log series
+PASS Taylor sine composition
+PASS Taylor square root
+PASS finite removable limit
+PASS limit at nonzero center
+PASS pole not treated as finite
+PASS unsupported analytic center
+PASS 2021 Q10 MLE exact and boundary comparison
+PASS MLE boundary maximum
+PASS MLE flat likelihood
+PASS invalid model probabilities
+PASS TeX fraction parser
+PASS exact constant matrix expression
+PASS domain zero denominator after substitution
+31 extended tests passed
+
+--- v06-core.test.js ---
+PASS characteristic sign and roots
+PASS repeated rational roots
+PASS nonmonic rational root
+PASS irreducible real quadratic retained
+PASS unresolved polynomial retained honestly
+PASS tan exact Taylor
+PASS binomial variance
+PASS invalid binomial parameter
+PASS linear variance
+PASS invalid covariance
+PASS normal variance
+PASS negative variance
+SKIP local reference file existence: not distributed in public edition
+PASS reference metadata structure (local asset audit opt-in)
+13 V0.6 tests passed
+
+--- v07-core.test.js ---
+PASS polynomial row scaling and zero parameter extension
+PASS column add polynomial, determinant preserved
+PASS swap sign and row scale correction
+PASS zero multiplier rejected
+PASS same source row rejected
+PASS transcendental multiplier rejected
+PASS upper triangular product
+PASS lower triangular product
+PASS false triangular rejection
+PASS zero row and column
+PASS cofactor row and column signs and exact reconstruction
+PASS division must be exact
+12 V0.7 tests passed
+
+--- v08-core.test.js ---
+PASS actual 2020 Q13: reciprocal row additions, two cofactor reductions
+PASS scale by 1/a, ledger becomes a
+PASS column reciprocal and negative powers
+PASS fractional combined transform
+PASS reciprocal cancellation does not forget a=0
+PASS original rational domain remains distinct
+PASS identically zero denominator rejected
+PASS zero scaling rejected even with denominator
+PASS unused fields ignored
+PASS parameter introduced in numerical matrix
+PASS rational cofactor coefficient and recursive result
+PASS full cofactor aggregation with rational terms
+12 V0.8 tests passed
+
+--- v09-core.test.js ---
+PASS zero row with parameter after reciprocal scaling
+PASS proportional symbolic rows
+PASS proportional symbolic columns with denominators
+PASS reject unrelated rows
+PASS reject same row
+PASS Sarrus symbolic determinant matches direct expansion
+PASS Sarrus on transformed rational matrix
+PASS reject Sarrus for fourth order
+8 V0.9 tests passed
+
+--- v10-core.test.js ---
+PASS coefficient of expanded polynomial
+PASS coefficient of absent term
+PASS reciprocal substitution and removable quotient series
+PASS insufficient Taylor order rejected
+PASS Taylor quotient with removable zero
+PASS covariance equation and solved variance
+PASS correlation exact and invalid covariance rejected
+PASS Poisson approximation and cumulative probability
+PASS Poisson mass and invalid input
+PASS partial fraction general numerator
+PASS reject mismatched denominator and reducible quadratic
+PASS partial fraction primitive bounds
+12 V1.0 tests passed
+
+--- v11-core.test.js ---
+PASS parts with zero boundary and variable polynomial
+PASS root substitution exact and wrong substitution rejected
+PASS radical substitution different coefficient and interval
+PASS exact radical integration
+PASS augmented row operations
+PASS check both singular candidates
+PASS matrix pencil and quadratic coefficient extraction
+PASS reject lower-degree terms in homogeneous quadratic
+PASS normal covariance and both linear combinations
+PASS ODE exponential primitive and polynomial primitive
+PASS difference equation and alternative polynomial
+PASS polar half symmetry, changed radius scaling, rejection
+12 V1.1 tests passed
+
+--- v12-core.test.js ---
+PASS independent combinations and covariance
+PASS binomial moments and empirical distribution
+PASS pair probability and incorrect relations
+PASS inclusion-exclusion and exactly one
+PASS absolute deviation for Poisson integer mean
+PASS Taylor sign and continuity, alternative parameter
+PASS log equation and domain
+PASS telescoping general affine
+PASS explicit substitution and back substitution
+PASS partial fraction solution uses substitution, not RREF
+10 V1.2 tests passed
+
+--- v14-core.test.js ---
+PASS exact rational equivalents and domain restrictions
+PASS symbolic sums and equivalent fractions
+PASS exact affine extraction and invalid free column
+PASS symbolic inclusion, wrong coefficient rejected
+4 V1.4 core tests passed
+
+--- v17-core.test.js ---
+PASS column add, fractional scale, swap
+PASS trace rational and nonsquare rejection
+PASS urn with different initial counts
+PASS conditional probability products and disjoint sum
+PASS Bernoulli variance and covariance
+PASS implicit slope and price elasticity
+PASS symmetric moments as reusable integrands
+7 V1.7 test groups passed
+
+--- v18-core.test.js ---
+PASS exact union and invalid intersection
+PASS conditional and invalid denominator
+PASS geometric residue and mean
+PASS changed parameters and normalization
+
+--- v19-core.test.js ---
+PASS exact derivative substitution and radical domain
+PASS power logarithm and changed coefficients
+PASS split improper integral and invalid cut
+PASS disk symmetry and integer half-wave conditions
+PASS inverse demand, affine split, stationary equation and sign test
+
+--- v20-core.test.js ---
+PASS joint table, independence and moments
+PASS exponential sample score, variance and duplicate check
+PASS ODE particular solution, initial value and changed parameters
+PASS square completion and normalized basis
+PASS series radii, endpoint cases
+
+--- v21-core.test.js ---
+PASS cost, derivative, stationary point, sign and changed parameters
+PASS polar split, radial cancellation and angular integration
+PASS sector substitution and exponential integration
+PASS cut CDF, exact rational density and moment primitive
+PASS one-sided limits and changed coefficients
+
+--- v22-core.test.js ---
+PASS quadratic splitting, completing square, exact angle bounds
+PASS shifted integral and changed bounds
+PASS partial derivatives, domain, Hessian and values
+PASS repeated eigenvalue branches, exact AP=PΛ and wrong diagonal rejection
+PASS series coefficient, differentiation, logarithm, constant and endpoints
+
+--- v23-core.test.js ---
+PASS shell bounds, split, primitive, exact result and axis/domain guards
+PASS trace/determinant invariant, ordered roots, two valid Q and wrong Q rejection
+PASS basis coordinates and characteristic polynomial
+PASS sector event ranges, table normalization and moments
+PASS density normalization, expectation and uniform-tail probability
+
+--- v24-core.test.js ---
+PASS characteristic roots, alternate initial values, coefficient-level ODE substitution
+PASS exponential-trig primitives, integer phase bounds, tail decay, positive half-wave
+PASS integrating factor, constant and disk bounds
+PASS actual log derivative and rational identity, stationary scale and restoration
+PASS exponential and signed moments, covariance and parameter root
+
+--- v25-core.test.js ---
+PASS vector span, determinants, both degenerate branches
+PASS similarity parameters and AP=PB
+PASS half-normal score derivative
+PASS cosine recurrence and half-disk moment
+PASS repeated-root polynomial and forcing
+
+--- v26-core.test.js ---
+PASS termwise integration and remainder
+PASS quotient Taylor and rejection
+PASS coefficient derivatives
+PASS spectral multiplicity
+PASS special-angle substitution
+
+--- v27-core.test.js ---
+PASS path differentiation and elimination
+PASS exceptional spans
+PASS paired linear combination
+PASS telescoping exact identity
+PASS radius
+
+--- v28-core.test.js ---
+PASS Vandermonde exact identity and conflicts
+PASS rank-nullity and adjugate rank
+PASS orthonormal basis coordinates
+PASS normal linear combination and standardization
+PASS trig collection and inflection signs
+
+--- v29-core.test.js ---
+PASS variable-bound integral affine chain
+PASS affine mixed partial coefficients
+PASS eigenbasis combination and dependence
+PASS exponential Taylor restoration
+PASS symbolic critical point
+
+--- v30-core.test.js ---
+PASS exact quadratic substitution and square verification
+PASS disjoint event algebra
+PASS cofactor basis selection
+PASS removable sine quotient structure
+PASS power rewrite and branch differentiation
+
+--- v31-core.test.js ---
+PASS squared ratio witness
+PASS sequence terms and exact root comparisons
+PASS logarithm derivative bound
+PASS similarity and congruence counterexamples
+PASS exact four-region probability witness
+PASS parity rules
+PASS symbolic recurrence coefficient
+PASS mean-value interval length
+
+--- v32-core.test.js ---
+PASS four exact ratio limits and insufficient precision
+PASS actual integration of local series
+PASS Taylor multiplication and local extremum sign
+PASS triangle exchange and symbolic width
+PASS independent linear substitution and free square decomposition
+PASS unsupported Taylor node fails closed
+
+--- v33-core.test.js ---
+PASS 2023 Q17 actual first and second total derivatives
+PASS 2024 Q18 both directions and exact logarithmic values
+PASS 2023 Q22 change, primitive verification, CDF, density and asymptotic comparison
+PASS reject removable domain hole in proposed primitive
+
+--- v34-core.test.js ---
+PASS Q17 symmetry, derivative Jacobian, inverse, integration
+PASS Q22 maximum CDF, moments, unbiased and MSE derivatives
+PASS reject canceled denominator holes in admissible domains
+PASS Q18 reciprocal change, primitive formula, disk decomposition, independent endpoints
+
+--- v35-core.test.js ---
+PASS polar radial polynomial integration and exact trigonometric endpoints
+PASS variable limit total differentiation, exact first and second derivatives
+PASS piecewise profit, open boundary supremum versus maximum
+
+--- v36-core.test.js ---
+PASS exact spectral invariants, dimensions and adjugate determinant
+PASS actual symbolic matrix products, candidate order and equality
+PASS independent normal linear combinations and signed exact threshold ordering
+PASS full row rank reasoning and arbitrary exact counterexamples
+
+--- v37-core.test.js ---
+PASS exact plane normals, independent intersection and candidate validation
+PASS chi-square normalization, exact F scale and ordering
+PASS centered normal absolute moment and positive unbiased scale
+PASS independent exponential tail integrals and disjoint merging
+PASS exact matrix powers and independent logical versions
+
+--- v38-core.test.js ---
+PASS pointwise limits and both boundary checks
+PASS periodic half-wave integral and signed integer multiple
+PASS monotone sine region bounds
+PASS actual differentiated series values and even index weighting
+PASS inverse equation isolation, positive domain and two endpoint limits
+
+--- v39-core.test.js ---
+PASS local partials and side-specific signs
+PASS derivative verification of both branches and arbitrary matching constants
+PASS bounded ODE parameter cases
+PASS exact series difference and two triangle identities
+PASS actual symbolic logarithm expansion and series domain
+
+--- v40-core.test.js ---
+PASS noncommutative block cancellation
+PASS differential coefficients and special angle
+PASS asset equation derivative, coefficients and initial value
+PASS determinant row combination and permutation
+PASS exact minors, relation, expansion, parameter roots
+PASS partial fractions, signed improper integrals
+PASS moving bounds, derivative identity, primitive, exact evaluation and domain
+
+--- v41-core.test.js ---
+PASS stepwise partial coefficient computation, alternative order, wrong coefficient and denominator
+PASS direct affine solution, alternative free variable, completeness and wrong direction
+PASS independent column selection, exact two-row arithmetic and duplicate-column rejection
+
+--- v42-core.test.js ---
+PASS stationary point and scalar Hessian, incorrect point and derivative rejected
+PASS direct eigenvector verification and arbitrary ordered diagonalization
+PASS likelihood strict concavity certificate, wrong candidate and endpoint rejected
+
+--- v43-core.test.js ---
+PASS exact covariance and correlation with matching typed variance
+PASS reuse independent linear combination coefficients
+PASS direct approximate Poisson CDF metadata validation
+
+--- v44-core.test.js ---
+PASS independent count variance and sample scaling
+PASS disjoint group independence and two event probabilities
+PASS tail primitive derivative, normalization and domain
+
+--- v45-core.test.js ---
+PASS variance nonindependent and PSD check
+PASS density reflection, normalization, odd moment
+PASS single-point Poisson absolute deviation
+
+--- v46-core.test.js ---
+PASS user-selected Taylor order
+PASS leading term ratio
+PASS exponential coefficient identities
+PASS tangent quotient rewrite
+
+--- v47-core.test.js ---
+PASS selected polynomial primitive
+PASS partial fraction and pole threshold
+PASS exponential primitive validation
+PASS difference identity and free constant
+PASS power primitive coefficient and exponent
+
+--- v48-core.test.js ---
+PASS chosen rank certificate and necessary condition
+PASS user symmetric entries and principal minors
+PASS exact radical interval, alternate expressions, wrong intersection
+PASS four multilinearity terms
+
+--- v49-core.test.js ---
+PASS binomial complement/sum and exact selected cancellation
+PASS Taylor precision and selected lead order
+PASS scalar Hessian, stationary points and classification
+PASS polar bounds, identities, primitive, both halves and exact total
+
+--- v51-core.test.js ---
+PASS exact rational equality and unsupported inputs
+PASS restricted exponential-polynomial comparison
+PASS interval endpoints and conservative transcendental comparison
+PASS matrix power and both factorization routes
+
+--- v52a-core.test.js ---
+PASS V52A implicit derivative source operations
+PASS V52A inverse-function point and derivative
+PASS V52A row relation and direct matrix solution
+PASS V52A rational CDF, exact improper integration, domain guards
+PASS V52A polynomial and symmetry integration routes
+PASS V52A exact Taylor ratio and wrong order rejection
+PASS V52A both improper endpoints and strict interval
+PASS V52A characteristic and initial-value calculation
+PASS V52A chosen minors and full rank check
+PASS V52A conceptual rule choices
+PASS V52A rank-based conceptual derivations
+
+--- v52b-core.test.js ---
+PASS 2026-09 moments, covariance, correlation
+PASS 2026-10 geometric tail and comparison
+PASS 2026-16 both independence routes
+PASS 2026-17 integral constant, series differentiation, endpoints
+PASS 2026-18 change of variables and continuity bounds
+PASS 2026-19 all stationary points and Hessian
+PASS 2026-20 inner power and both log terms
+PASS 2026-21 full column verification and exact powers
+PASS 2026-22 censored likelihood and unbiased estimator
+
+46/46 scripts passed

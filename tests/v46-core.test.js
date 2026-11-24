@@ -1,0 +1,5 @@
+const assert=require('node:assert/strict'),M=require('../core');for(let f of ['algebra','math06','math10','math46'])require('../'+f);
+assert.equal(M.lead46(['0','0','0','-1/3'],3),'-1/3');assert.throws(()=>M.lead46(['0','0','0','-1/3'],1));assert.throws(()=>M.lead46(['0','1','2'],2));assert.throws(()=>M.lead46(['0','0'],3));console.log('PASS user-selected Taylor order');
+assert.equal(M.ratio46(['0','0','2/3'],['0','0','1'],2,2).value,'2/3');assert.throws(()=>M.ratio46(['0','1'],['0','0','1'],1,2));assert.throws(()=>M.ratio46(['0','0','2/3'],['0','0','1'],1,2));assert.equal(M.ratio46(['0','0','1'],['0','1'],2,1).value,'0');console.log('PASS leading term ratio');
+let a=M.expMix46('1/2','1/2');assert.equal(a.even,'1');assert.equal(a.odd,'0');assert.equal(M.expMix46('1/2','-1/2').odd,'1');assert.equal(M.expMix46('1','1').even,'2');console.log('PASS exponential coefficient identities');
+assert.equal(M.str(M.quotient46(M.parse('x-sin(x)/cos(x)'))),M.str(M.parse('(x*cos(x)-sin(x))/cos(x)')));assert.throws(()=>M.quotient46(M.parse('x+sin(x)/cos(x)')));console.log('PASS tangent quotient rewrite');

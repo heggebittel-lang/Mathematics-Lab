@@ -1,0 +1,15 @@
+const assert=require('node:assert/strict'),M=require('../core');require('../algebra');require('../calculus-extra');require('../math11');const p=M.parse;let n=0;function t(name,f){f();console.log('PASS '+name);n++}
+t('parts with zero boundary and variable polynomial',()=>{let a=M.partsPlan11(p('2*x^2'),p('1+x^4'),'x','0','1','1','F');assert(M.equal11(a.v,p('2*x^3/3')));assert.throws(()=>M.partsPlan11(p('x^2'),p('1+x^4'),'x','0','2','1','F'))});
+t('root substitution exact and wrong substitution rejected',()=>{let a=M.radicalSub11(p('-x^3/3'),p('1+x^4'),'x','0','1');assert.deepEqual([a.c,a.lo,a.hi],['-1/12','1','2']);assert.throws(()=>M.radicalSub11(p('x^2'),p('1+x^4'),'x','0','1'))});
+t('radical substitution different coefficient and interval',()=>{let a=M.radicalSub11(p('6*x'),p('1+x^2'),'x','0','2');assert.deepEqual([a.c,a.lo,a.hi],['3','1','5'])});
+t('exact radical integration',()=>assert.deepEqual(M.radicalResult11('-1/12','1','2'),M.simp(M.B('+',M.B('*',M.N('-1/9'),M.F('sqrt',M.N(2))),M.N('1/18')))));
+const A=[['1','0','-1'],['1','1','-1'],['0','1','a^2-1']],b=[['0'],['1'],['a']];
+t('augmented row operations',()=>{let a=M.augRow11(M.augRow11(M.aug11(A,b),1,0,'-1'),2,1,'-1');assert(M.equal11(p(a[2][2]),p('a^2-1')));assert(M.equal11(p(a[2][3]),p('a-1')));assert.throws(()=>M.augRow11(a,1,1,'1'))});
+t('check both singular candidates',()=>{let y=M.augCheck11(A,b,'a','1'),n=M.augCheck11(A,b,'a','-1');assert(y.infinite);assert(!n.infinite);assert.equal(n.ra,3);assert(!M.augCheck11(A,b,'a','2').infinite)});
+t('matrix pencil and quadratic coefficient extraction',()=>{let a=M.pencil11([['1','2'],['-2','-a']],[['1','0'],['1','a']],'x','y'),f=M.detAst(a.map(r=>r.map(p)));assert(M.equal11(f,p('(4-a)*x^2-2*x*y+a*y^2')));let Q=M.quadratic11(f,'x','y');assert(M.equal11(p(Q[0][0]),p('4-a')));assert(M.equal11(p(Q[1][0]),p('-1')))});
+t('reject lower-degree terms in homogeneous quadratic',()=>assert.throws(()=>M.quadratic11(p('x^2+y^2+1'),'x','y')));
+t('normal covariance and both linear combinations',()=>{assert.equal(M.normalCov11('1','4','-1/2'),'-1');let a=M.normalLinear11(['1','1'],['0','0'],['1','4'],'-1'),b=M.normalLinear11(['1','-1'],['0','0'],['1','4'],'-1');assert.deepEqual([a.variance,a.covX,b.variance,b.covX],['3','0','7','2']);assert.throws(()=>M.normalCov11('1','4','2'))});
+t('ODE exponential primitive and polynomial primitive',()=>{let a=M.odePrimitive11(p('-exp(x)'),'x');assert.deepEqual(a,p('-exp(x)'));assert(M.equal11(M.odePrimitive11(p('2*x+1'),'x'),p('x^2+x')))});
+t('difference equation and alternative polynomial',()=>{for(let [g,d] of [['t',2],['3*t^2+3*t+1',3]]){let a=M.difference11(p(g),'t',d).u;assert(M.equal11(M.B('-',M.sub(a,'t',p('t+1')),a),p(g)))}assert.throws(()=>M.difference11(p('t'),'t',1))});
+t('polar half symmetry, changed radius scaling, rejection',()=>{let a=M.polarFinal11(M.polarParts11(M.polar11('4','lower',true))),b=M.polarFinal11(M.polarParts11(M.polar11('2','upper',true)));assert.deepEqual(a,{pi:'12',constant:'-112/3'});assert.deepEqual(b,{pi:'3/4',constant:'-7/3'});assert.throws(()=>M.polar11('4','lower',false))});
+console.log(n+' V1.1 tests passed');

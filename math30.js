@@ -1,0 +1,12 @@
+/* V3.0 exact local operations and structured condition checks. */
+(function(M){'use strict';const {Q,N,V,B,F,parse:P,normalize}=M,q=Q.of;
+function quadReduce30(original,diff){let a=P(diff);if(!M.eqRat25(M.sub(M.sub(a,'u',P('x+y')),'v',P('y+z')),P('z-x')))throw Error('代换后的差不等于 x₃−x₁');let out=normalize(B('-',P('u^2+v^2'),B('^',a,N(2))));let lifted=M.sub(M.sub(out,'u',P('x+y')),'v',P('y+z'));if(!M.eqRat25(lifted,original))throw Error('代换不保持原二次型');return out}
+function quadSquares30(a,l,r,c,d){let L=P(l),R=P(r),C=q(c),D=q(d);let coeff=t=>{let p=M.sparse(t);if([...p.keys()].some(k=>!['u','v'].includes(k)))throw Error('请输入齐次线性形式');return ['u','v'].map(k=>(p.get(k)||q(0)).str())};let A=[coeff(L),coeff(R)];if(q(A[0][0]).mul(A[1][1]).sub(q(A[0][1]).mul(A[1][0])).zero())throw Error('两个新变量必须独立');let out=B('+',B('*',N(C),B('^',L,N(2))),B('*',N(D),B('^',R,N(2))));if(!M.eqRat25(a,out))throw Error('平方和与原二次型不等价');return {L,R,c:C.str(),d:D.str(),positive:[C,D].filter(x=>x.n>0n).length,negative:[C,D].filter(x=>x.n<0n).length}}
+const masks={A:3,B:5,AB:1,AnB:2,BnA:4,none:8};
+function eventParts30(event,a,b){let e=masks[event],x=masks[a],y=masks[b];if(e===undefined||x===undefined||y===undefined||(x&y)!==0||(x|y)!==e)throw Error('两事件须互斥且并集恰为目标事件');return {event,parts:[a,b]}}
+function eventDiff30(a,b){if(a.event!=='A'||b.event!=='B')throw Error('请选择 A、B 的分解');let terms={};for(let k of a.parts)terms[k]=(terms[k]||0)+1;for(let k of b.parts)terms[k]=(terms[k]||0)-1;return Object.fromEntries(Object.entries(terms).filter(([k,v])=>v!==0))}
+function minorBasis30(n,i,j,cols){if(!Number.isInteger(n)||n<2||i<1||i>n||j<1||j>n)throw Error('余子式下标无效');let expected=Array.from({length:n},(_,i)=>i+1).filter(k=>k!==j);if(cols.length!==n-1||new Set(cols).size!==n-1||!expected.every(k=>cols.includes(k)))throw Error('请选择非零子式保留的列，而不是删去的列');return {rows:Array.from({length:n},(_,k)=>k+1).filter(k=>k!==i),cols,rank:n-1,adjRank:M.adjRank28(n,n-1),nullity:M.rankNull28(n,1)}}
+function powerRewrite30(a){if(a.t!=='b'||a.v!=='^')throw Error('请选择幂指函数');return F('exp',B('*',a.b,F('ln',a.a)))}
+function pieceSlope30(pos,neg){let p=M.derivative(pos,'x'),n=M.derivative(neg,'x');return {p,n}}
+function limitFactor30(k){if(k!=='sinc')throw Error('应使用连续延拓的 sin t/t 因子，避免分母为零时直接相除');return P('b*cos(a)')}
+Object.assign(M,{quadReduce30,quadSquares30,eventParts30,eventDiff30,minorBasis30,powerRewrite30,pieceSlope30,limitFactor30});})(typeof module!=='undefined'?require('./core'):window.M);

@@ -1,0 +1,13 @@
+/* Exact, restricted operations for V2.8. */
+(function(M){'use strict';const {Q,N,V,B,F,parse,normalize}=M,q=Q.of;
+function rankNull28(n,k){if(!Number.isInteger(n)||!Number.isInteger(k)||n<1||k<0||k>n)throw Error('阶数或零空间维数无效');return n-k}
+function adjRank28(n,r){if(!Number.isInteger(n)||n<2||!Number.isInteger(r)||r<0||r>n)throw Error('阶数或秩无效');return r===n?n:r===n-1?1:0}
+function vand28(A,factor){let d=M.determinant25(A);if(!M.eqRat25(d,parse(factor)))throw Error('因式分解与原行列式不等价');return d}
+function conflict28(A,b,i,j,env){if(i===j||!A[i]||!A[j])throw Error('请选择不同的两行');let a=M.evalMatrix(A,env);if(a[i].join()!==a[j].join())throw Error('此情形两行系数不相同');if(q(b[i]).sub(b[j]).zero())throw Error('右端相同，不能由这两行推出矛盾');return {row:a[i],rhs:[b[i],b[j]]}}
+function orthBasis28(n,rows,b,coeff){if(!Number.isInteger(n)||n<1||rows.length!==b.length||new Set(rows).size!==rows.length||rows.some(i=>i<1||i>n)||coeff.length!==n)throw Error('正交基维数或约束无效');let free=Array.from({length:n},(_,i)=>i+1).filter(i=>!rows.includes(i));for(let i=0;i<rows.length;i++)if(!M.eqRat25(parse(coeff[rows[i]-1]),N(b[i])))throw Error('所选基系数不满足对应内积方程');if(free.length!==1||!M.eqRat25(parse(coeff[free[0]-1]),V('k')))throw Error('当前支持一个自由参数 k，必须放在未约束基方向');return {coeff,free}}
+function normalSame28(c,d){c=q(c);d=q(d);let s=c.pow(2).add(d.pow(2));if(s.zero())throw Error('组合方差必须为正');return {mean:normalize(B('*',N(c.add(d)),V('m'))),variance:normalize(B('*',N(s),B('^',V('s'),N(2)))),scale:s.str(),c:c.str(),d:d.str()}}
+function normalTail28(z,h){h=q(h);if(h.n<=0n||!M.eqRat25(z.mean,N(0)))throw Error('当前双侧标准化工具要求均值为0且阈值为正');return M.simp(B('/',N(h),B('*',F('sqrt',N(z.scale)),V('s'))))}
+// Treat sin(x), cos(x) as formal independent atoms during algebraic collection only.
+function trigCollect28(a){if(M.vars(a).some(v=>v!=='x'))throw Error('当前只支持 x 与 sin(x)、cos(x) 的多项式组合');const walk=t=>{if(t.t==='f'){if(t.a.t!=='v'||t.a.v!=='x'||!['sin','cos'].includes(t.v))throw Error('当前仅支持 sin(x)、cos(x)');return V(t.v==='sin'?'u':'v')}if(t.t==='b')return B(t.v,walk(t.a),walk(t.b));return t};let p=walk(a);M.sparse(p);let z=normalize(p);return M.simp(M.sub(M.sub(z,'u',F('sin',V('x'))),'v',F('cos',V('x'))))}
+function inflection28(a,root,signs){let z=trigCollect28(a);if(M.str(z)!==M.str(trigCollect28(parse('-x*sin(x)'))))throw Error('当前符号表支持 -x sin x');if(!['0','p'].includes(root))throw Error('候选点不在所给二阶导数零点集合中');let expected=root==='0'?['-','-']:['-','+'];if(signs.join()!==expected.join())throw Error('二阶导数符号不正确：请分别观察 x 和 sin x');return expected[0]!==expected[1]}
+Object.assign(M,{rankNull28,adjRank28,vand28,conflict28,orthBasis28,normalSame28,normalTail28,trigCollect28,inflection28});})(typeof module!=='undefined'?require('./core'):window.M);

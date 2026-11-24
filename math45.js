@@ -1,0 +1,7 @@
+/* Exact checks for short probability derivations; not a whole-question solver. */
+(function(M){'use strict';const q=M.Q.of,{N,B}=M;
+function affineVariance45(a,b,v,w,c){return M.varianceLinear(a,b,v,w,c)}
+function symmetry45(f,lo,hi,center){let l=q(lo),h=q(hi),c=q(center);if(h.sub(l).n<=0n||!c.mul(2).sub(l.add(h)).zero())throw Error('反射中心须为支撑区间中点');let x='x',p=M.poly(f,x),F=M.fromPoly([q(0),...p.map((v,i)=>v.div(i+1))],x);let mass=M.normalize(B('-',M.evalAt(F,{x:h.str()}),M.evalAt(F,{x:l.str()})));if(mass.t!=='n'||mass.v!=='1')throw Error('密度总质量不是1');let reflection=M.normalize(M.sub(f,x,M.parse(`${c.mul(2).str()}-x`)));if(!M.eqRat25(f,reflection))throw Error('密度不具有该反射对称性');return {center:c.str(),lo:l.str(),hi:h.str(),reflection}}
+function oddMoment45(f,center,k){if(!Number.isInteger(k)||k<1||k>11||k%2===0)throw Error('该路线只适用正奇数阶中心矩');let c=q(center),a=M.normalize(B('*',B('^',B('-',M.V('x'),N(c)),N(k)),f)),r=M.normalize(M.sub(a,'x',M.parse(`${c.mul(2).str()}-x`)));if(!M.eqRat25(r,M.normalize(B('*',N(-1),a))))throw Error('被积函数不反对称');return {integrand:a,reflection:r,value:N(0)}}
+function absZero45(lambda,mean,p){let l=q(lambda),m=q(mean);if(!l.sub(m).zero()||!l.sub(1).zero())throw Error('此单点负偏差路线要求 λ=EX=1');let want=M.poissonTerms10(l.str(),0,'mass').ast;if(M.compare(p,want)!=='ok')throw Error('需要真实的零点概率');return M.simp(B('*',N(m.mul(2)),p))}
+Object.assign(M,{affineVariance45,symmetry45,oddMoment45,absZero45});})(typeof module!=='undefined'?require('./core.js'):window.M);

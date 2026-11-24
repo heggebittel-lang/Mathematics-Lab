@@ -1,0 +1,13 @@
+/* Exact local Taylor transformations, elementary spectral multiplicities and special-angle evaluation. */
+(function(M){'use strict';const {Q,N,V,B,F,simp,parse}=M,q=Q.of;
+function seriesPoly26(a,x,n){if(!Number.isInteger(n)||n<0||n>20)throw Error('无效展开阶数');let p=M.poly(a,x);if(p.length>n+1)throw Error('多项式超出声明的阶数');return Array.from({length:n+1},(_,i)=>p[i]||q(0))}
+function integrateSeries26(a,x,n,power,variable='x'){if(!Number.isInteger(power)||power<1||power>4)throw Error('上限幂次支持1–4');if((n+1)*power>20)throw Error('代入上限后的展开阶数超出当前支持范围20；请降低展开阶数');let p=seriesPoly26(a,x,n),out=Array.from({length:(n+1)*power+1},()=>q(0));p.forEach((c,i)=>out[(i+1)*power]=c.div(i+1));return {ast:M.fromPoly(out,variable),n:(n+1)*power,variable}}
+function divideSeries26(a,x,n,k){if(!Number.isInteger(k)||k<1||k>n)throw Error('展开阶数不足');let p=seriesPoly26(a,x,n);if(p.slice(0,k).some(c=>!c.zero()))throw Error('低次项未消去，不能作为普通 Taylor 展开');return {ast:M.fromPoly(p.slice(k),x),n:n-k,variable:x}}
+function leading26(a,x,n){let p=seriesPoly26(a,x,n),i=p.findIndex(c=>!c.zero());if(i<0)throw Error('已知项全零，不能确定首项阶数；请提高展开阶数');return {order:i,coef:p[i].str()}}
+function derivativeAtZero26(a,x,n,k){if(!Number.isInteger(k)||k<0||k>n)throw Error('展开阶数不足以提取该阶导数');let p=seriesPoly26(a,x,n),c=p[k];for(let i=2;i<=k;i++)c=c.mul(i);return c.str()}
+function multiplicity26(poly,variable,dimension,det,k){let rs=M.solve(poly,variable);if(rs.irr.length||rs.roots.length!==2)throw Error('目前仅支持恰有两个互异有理根的谱约束');if(!Number.isInteger(dimension)||dimension<1||dimension>12||!Number.isInteger(k)||k<0||k>dimension)throw Error('重数必须为0至矩阵阶数的整数');let [a,b]=rs.roots.map(q),d=a.pow(k).mul(b.pow(dimension-k));return {roots:[a.str(),b.str()],counts:[k,dimension-k],det:d.str(),valid:d.sub(det).zero(),positive:(a.n>0n?k:0)+(b.n>0n?dimension-k:0),negative:(a.n<0n?k:0)+(b.n<0n?dimension-k:0),zero:(a.zero()?k:0)+(b.zero()?dimension-k:0)}}
+// Restricted exact evaluation at rational coordinates and integer multiples of pi. Never approximate trig values.
+function special26(a){if(a.t==='n'||a.t==='v')return a;if(a.t==='b')return simp(B(a.v,special26(a.a),special26(a.b)));let u=special26(a.a);if(['sin','cos'].includes(a.v)){try{let p=M.poly(u,'p');if(p.length<=2&&p[0].zero()){let k=p[1]||q(0);if(k.d===1n)return N(a.v==='sin'?0:k.n%2n===0n?1:-1)}}catch{}}return simp(F(a.v,u))}
+function atSpecial26(a,env){for(let [k,v] of Object.entries(env))a=M.sub(a,k,typeof v==='object'?v:parse(v));a=special26(a);M.validate(a);return M.normalize(a)}
+function arcFactor26(u){return simp(B('/',N(1),B('+',N(1),B('^',u,N(2)))))}
+Object.assign(M,{seriesPoly26,integrateSeries26,divideSeries26,leading26,derivativeAtZero26,multiplicity26,atSpecial26,arcFactor26});})(typeof module!=='undefined'?require('./core'):window.M);

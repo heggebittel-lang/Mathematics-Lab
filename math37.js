@@ -1,0 +1,15 @@
+/* V3.7 exact plane, normal absolute moment, F ratio, exponential tail and counterexample operations. */
+(function(M){'use strict';const q=M.Q.of,req=(b,s)=>{if(!b)throw Error(s)},vec=a=>{req(Array.isArray(a)&&a.length===3,'需要三维向量');return a.map(q)},nonzero=a=>a.some(x=>!q(x).zero()),cross=(a,b)=>{a=vec(a);b=vec(b);return [a[1].mul(b[2]).sub(a[2].mul(b[1])),a[2].mul(b[0]).sub(a[0].mul(b[2])),a[0].mul(b[1]).sub(a[1].mul(b[0]))].map(x=>x.str())},dot=(a,b)=>vec(a).reduce((s,x,i)=>s.add(x.mul(vec(b)[i])),q(0)).str();
+function plane37(a,b){let n=cross(a,b);req(nonzero(n),'两向量须独立');return n}
+function intersection37(a,b,v){let d=plane37(a,b);req(nonzero(v),'候选方向不能为零');let tests=[dot(a,v),dot(b,v)];req(tests.every(x=>q(x).zero()),'候选方向不同时属于两个平面');return {v:vec(v).map(x=>x.str()),d,tests}}
+function chi37(g,df,scale){req(df===g.size+'-1','自由度应为样本容量减1');req(q(scale).sub(g.scale).zero(),'总体方差倍数错误');return {size:g.size,df,scale:q(scale).str(),sample:g.sample}}
+function fRatio37(a,b){req(a.sample!==b.sample,'必须引用两个独立样本');return {numerator:a.sample,denominator:b.sample,df1:a.df,df2:b.df,factor:q(b.scale).div(a.scale).str()}}
+function centeredNormal37(a,b){a=q(a);b=q(b);let v=a.pow(2).add(b.pow(2));req(!v.zero(),'线性组合方差不能为零');req(a.add(b).zero(),'组合均值不为零，不能使用中心正态绝对矩');return {coeff:[a.str(),b.str()],variance:v.str()}}
+function absMoment37(z){let v=q(z.variance);req(v.n>0n,'方差倍数须为正');return {factor:v.mul(2).str(),coeff:z.coeff}}
+function unbiased37(z,sign){req(sign==='positive','无偏系数必须为正');return {factor:q(1).div(z.factor).str(),coeff:z.coeff}}
+function expBranch37(rateX,rateY,branch){let x=q(rateX),y=q(rateY);req(x.n>0n&&y.n>0n,'指数率必须为正');req(['xy','yx'].includes(branch),'请选择一个互斥尾事件');let r=branch==='xy'?x:y,s=branch==='xy'?y:x;return {branch,outer:s.str(),rate:r.str(),integralRate:r.add(s).str()}}
+function expIntegrate37(z){return {...z,factor:q(z.outer).div(z.integralRate).str()}}
+function expMerge37(a,b){req(a.branch!==b.branch,'须使用两个不同尾事件');req(a.rate===b.rate,'当前仅支持同率指数分布合并');let factor=q(a.factor).add(b.factor);req(factor.sub(1).zero(),'尾部系数不等于1');return {rate:a.rate,factor:factor.str()}}
+function powers37(A){req(A.length===3&&A.every(r=>r.length===3),'须输入三阶有理矩阵');A=A.map(r=>r.map(x=>q(x).str()));let mul=(a,b)=>a.map(r=>b[0].map((_,j)=>r.reduce((s,x,k)=>s.add(q(x).mul(b[k][j])),q(0)).str())),A2=mul(A,A),A3=mul(A2,A),diff=A3.map((r,i)=>r.map((x,j)=>q(x).sub(A2[i][j]).str()));return {A,A2,A3,diff}}
+function witness37(p,version,direction){req(['equal','minus'].includes(version),'版本无效');let flat=a=>a.flat(),zero=a=>!nonzero(flat(a)),diagonal=a=>a.every((r,i)=>r.every((x,j)=>i===j||q(x).zero()));if(direction==='suff'){req(!zero(p.A)&&zero(p.A2),'当前反充分性证据须为非零平方为零矩阵');return {version,direction,reason:'nilpotent'}}req(direction==='necess'&&version==='equal','减号版本必要性成立，不能构造此反例');req(diagonal(p.A)&&!zero(p.diff),'需要可对角化但 A³≠A² 的对角矩阵');return {version,direction,reason:'diagonal'}}
+Object.assign(M,{plane37,intersection37,chi37,fRatio37,centeredNormal37,absMoment37,unbiased37,expBranch37,expIntegrate37,expMerge37,powers37,witness37});})(typeof module!=='undefined'?require('./core'):window.M);

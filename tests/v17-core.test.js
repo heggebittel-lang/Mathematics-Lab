@@ -1,0 +1,9 @@
+const assert=require('node:assert/strict'),M=require('../core');require('../algebra');require('../math17');let n=0;const t=(name,f)=>{f();console.log('PASS',name);n++};
+t('column add, fractional scale, swap',()=>{let A=[['2','1'],['3','4']];assert.deepEqual(M.column17(A,'add',1,2,'-2'),[['0','1'],['-5','4']]);assert.deepEqual(M.column17(A,'scale',1,2,'1/2'),[['1','1'],['3/2','4']]);assert.deepEqual(M.column17(A,'swap',1,2,'1'),[['1','2'],['4','3']]);assert.throws(()=>M.column17(A,'scale',1,2,'0'))});
+t('trace rational and nonsquare rejection',()=>{assert.equal(M.trace17([['1/3','2'],['4','-1/2']]),'-1/6');assert.throws(()=>M.trace17([['1','2']]))});
+t('urn with different initial counts',()=>{assert.equal(M.urn17(3,5,'red','white'),'5/9');assert.equal(M.urn17(3,5,'white','red'),'1/3');assert.throws(()=>M.urn17(-1,2,'none','red'));assert.throws(()=>M.urn17(0,0,'none','red'))});
+t('conditional probability products and disjoint sum',()=>{assert.equal(M.prob17('1/3','3/4','product'),'1/4');assert.equal(M.prob17('1/4','1/8','sum'),'3/8');assert.throws(()=>M.prob17('3/4','1/2','sum'))});
+t('Bernoulli variance and covariance',()=>{assert.equal(M.berVar17('1/3'),'2/9');assert.equal(M.berCov17('1/3','1/2','1/4'),'1/12');assert.throws(()=>M.berCov17('1/3','1/2','3/4'));assert.throws(()=>M.berCov17('4/5','3/4','1/4'))});
+t('implicit slope and price elasticity',()=>{assert.equal(M.slope17('2','-3'),'2/3');assert.throws(()=>M.slope17(2,0));assert.equal(M.elastic17('2','3','-4'),'8/3');assert.throws(()=>M.elastic17(1,0,-1))});
+t('symmetric moments as reusable integrands',()=>{assert.equal(M.compare(M.symMoment17(M.parse('1-x'),'x',2),M.parse('2*x^2-2*x^3'),'x'),'ok');assert.equal(M.symMoment17(M.parse('1-x'),'x',3).v,'0');assert.throws(()=>M.symMoment17(M.parse('1-x'),'x',-1))});
+console.log(n+' V1.7 test groups passed');
