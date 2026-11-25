@@ -1,0 +1,174 @@
+/* Catppuccin palette adaptation (MIT), https://github.com/catppuccin/palette. See vendor/Catppuccin-LICENSE. */
+:root[data-theme55]:not([data-theme55="original"]){
+  --ml-c-111923:var(--ml-bg);
+  --ml-c-131e28:var(--ml-bg);
+  --ml-c-101b27:var(--ml-bg);
+  --ml-c-17222f:var(--ml-panel);
+  --ml-c-151f2b:var(--ml-panel);
+  --ml-c-141e29:var(--ml-panel);
+  --ml-c-172431:var(--ml-panel);
+  --ml-c-1c2729:var(--ml-panel);
+  --ml-c-1c2a38:var(--ml-raised);
+  --ml-c-192735:var(--ml-raised);
+  --ml-c-1a2937:var(--ml-raised);
+  --ml-c-20303e:var(--ml-raised);
+  --ml-c-192936:var(--ml-raised);
+  --ml-c-1b2c39:var(--ml-raised);
+  --ml-c-1a2b39:var(--ml-raised);
+  --ml-c-182734:var(--ml-raised);
+  --ml-c-243546:var(--ml-button);
+  --ml-c-202f3f:var(--ml-button);
+  --ml-c-35495b:var(--ml-hover);
+  --ml-c-2b3a49:var(--ml-line);
+  --ml-c-38464a:var(--ml-line);
+  --ml-c-304456:var(--ml-line);
+  --ml-c-394b5d:var(--ml-line);
+  --ml-c-3d5b63:var(--ml-line);
+  --ml-c-435155:var(--ml-line);
+  --ml-c-435568:var(--ml-edge);
+  --ml-c-dfe6ee:var(--ml-text);
+  --ml-c-8da0b3:var(--ml-muted);
+  --ml-c-8fa6b9:var(--ml-muted);
+  --ml-c-9ab1c3:var(--ml-muted);
+  --ml-c-91b1c5:var(--ml-muted);
+  --ml-c-adbfcd:var(--ml-subtext);
+  --ml-c-b9cbd9:var(--ml-subtext);
+  --ml-c-a3b8c7:var(--ml-subtext);
+  --ml-c-96bcb5:var(--ml-subtext);
+  --ml-c-b5c9cc:var(--ml-subtext);
+  --ml-c-c7dcd9:var(--ml-subtext);
+  --ml-c-9bb7c4:var(--ml-subtext);
+  --ml-c-79d3ba:var(--ml-accent);
+  --ml-c-5abca6:var(--ml-accent);
+  --ml-c-75ccb4:var(--ml-accent);
+  --ml-c-56c6ad:var(--ml-accent);
+  --ml-c-a6e8d5:var(--ml-accentText);
+  --ml-c-c1f1e2:var(--ml-accentText);
+  --ml-c-d1f7ea:var(--ml-accentText);
+  --ml-c-244a48:var(--ml-accentBg);
+  --ml-c-244740:var(--ml-accentBg);
+  --ml-c-243b43:var(--ml-accentBg);
+  --ml-c-23433f:var(--ml-accentBg);
+  --ml-c-203a3c:var(--ml-accentBg);
+  --ml-c-20343b:var(--ml-accentBg);
+  --ml-c-1a3035:var(--ml-accentBg);
+  --ml-c-315b55:var(--ml-accentBg);
+  --ml-c-28423f:var(--ml-accentBg);
+  --ml-c-1d3439:var(--ml-accentBg);
+  --ml-c-244741:var(--ml-accentBg);
+  --ml-c-3b665f:var(--ml-accentEdge);
+  --ml-c-385c5b:var(--ml-accentEdge);
+  --ml-c-568c80:var(--ml-accentEdge);
+  --ml-c-9de5d1:var(--ml-accentHover);
+  --ml-c-102b2b:var(--ml-onAccent);
+  --ml-c-f2a49b:var(--ml-wrong);
+  --ml-c-e9bf81:var(--ml-unknown);
+  --ml-c-86d8bc:var(--ml-success);
+  --ml-c-277b68:var(--ml-paperActive);
+}
+:root[data-theme55="latte"]{color-scheme:light;
+  --ml-bg:#eff1f5;
+  --ml-panel:#e6e9ef;
+  --ml-raised:#eff1f5;
+  --ml-button:#ccd0da;
+  --ml-hover:#bcc0cc;
+  --ml-line:#acb0be;
+  --ml-edge:#6c6f85;
+  --ml-text:#4c4f69;
+  --ml-muted:#5c5f77;
+  --ml-subtext:#4c4f69;
+  --ml-accent:#12646b;
+  --ml-accentText:#12646b;
+  --ml-accentBg:#d5e9e8;
+  --ml-accentEdge:#179299;
+  --ml-accentHover:#0d5359;
+  --ml-onAccent:#ffffff;
+  --ml-wrong:#a80e2e;
+  --ml-unknown:#795000;
+  --ml-success:#25691a;
+  --ml-paperActive:#12646b;
+}
+:root[data-theme55="frappe"]{color-scheme:dark;
+  --ml-bg:#232634;
+  --ml-panel:#303446;
+  --ml-raised:#414559;
+  --ml-button:#414559;
+  --ml-hover:#51576d;
+  --ml-line:#51576d;
+  --ml-edge:#838ba7;
+  --ml-text:#c6d0f5;
+  --ml-muted:#a5adce;
+  --ml-subtext:#b5bfe2;
+  --ml-accent:#81c8be;
+  --ml-accentText:#99d1db;
+  --ml-accentBg:#354d53;
+  --ml-accentEdge:#81c8be;
+  --ml-accentHover:#99d1db;
+  --ml-onAccent:#232634;
+  --ml-wrong:#e78284;
+  --ml-unknown:#e5c890;
+  --ml-success:#a6d189;
+  --ml-paperActive:#436861;
+}
+:root[data-theme55="macchiato"]{color-scheme:dark;
+  --ml-bg:#181926;
+  --ml-panel:#24273a;
+  --ml-raised:#363a4f;
+  --ml-button:#363a4f;
+  --ml-hover:#494d64;
+  --ml-line:#494d64;
+  --ml-edge:#8087a2;
+  --ml-text:#cad3f5;
+  --ml-muted:#a5adcb;
+  --ml-subtext:#b8c0e0;
+  --ml-accent:#8bd5ca;
+  --ml-accentText:#91d7e3;
+  --ml-accentBg:#30464e;
+  --ml-accentEdge:#8bd5ca;
+  --ml-accentHover:#91d7e3;
+  --ml-onAccent:#181926;
+  --ml-wrong:#ed8796;
+  --ml-unknown:#eed49f;
+  --ml-success:#a6da95;
+  --ml-paperActive:#416962;
+}
+:root[data-theme55="mocha"]{color-scheme:dark;
+  --ml-bg:#11111b;
+  --ml-panel:#1e1e2e;
+  --ml-raised:#313244;
+  --ml-button:#313244;
+  --ml-hover:#45475a;
+  --ml-line:#45475a;
+  --ml-edge:#7f849c;
+  --ml-text:#cdd6f4;
+  --ml-muted:#a6adc8;
+  --ml-subtext:#bac2de;
+  --ml-accent:#94e2d5;
+  --ml-accentText:#89dceb;
+  --ml-accentBg:#2d4449;
+  --ml-accentEdge:#94e2d5;
+  --ml-accentHover:#89dceb;
+  --ml-onAccent:#11111b;
+  --ml-wrong:#f38ba8;
+  --ml-unknown:#f9e2af;
+  --ml-success:#a6e3a1;
+  --ml-paperActive:#416962;
+}
+
+/* View settings only: do not re-render or modify mathematical objects. */
+#theme55,#zoom55{max-width:100%;padding:4px 6px;font-size:11px;cursor:pointer}
+#tools55[aria-pressed=true]{border-color:var(--accent);color:var(--accent)}
+body.tools-hidden55 .pane.tools{display:none}
+body.tools-hidden55 main{grid-template-columns:142px minmax(360px,1fr) minmax(260px,32%)}
+body.focus54.tools-hidden55 main{grid-template-columns:minmax(360px,1fr) minmax(250px,33%)}
+@media(max-width:1050px){body.tools-hidden55 main{grid-template-columns:112px minmax(300px,1fr) minmax(205px,27%)}body.focus54.tools-hidden55 main{grid-template-columns:minmax(300px,1fr) minmax(205px,30%)}}
+@media(max-width:800px){body.tools-hidden55 main{grid-template-columns:105px minmax(280px,1fr) minmax(195px,29%)}body.focus54.tools-hidden55 main{grid-template-columns:minmax(280px,1fr) minmax(195px,29%)}}
+body{zoom:var(--view-scale55,1);height:calc(100dvh / var(--view-scale55,1));}
+main{overflow-x:auto}
+header{height:auto;min-height:52px;gap:8px;padding-block:5px}
+.header-actions{flex-wrap:wrap;justify-content:flex-end}
+footer{height:auto;min-height:26px;gap:8px;flex-wrap:wrap;padding-block:2px}
+#view55{display:inline-flex;align-items:center;gap:4px;margin-left:auto;white-space:nowrap}
+:root[data-theme55="latte"] .guide13-option.active{background:var(--ml-accentBg)}
+:root[data-theme55]:not([data-theme55="original"]) a{color:var(--accent)}
+@media(max-width:800px){body,body.focus54{min-width:0;overflow:hidden}header{padding-inline:8px}}
